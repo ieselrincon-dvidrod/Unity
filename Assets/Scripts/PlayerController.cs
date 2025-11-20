@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
     public Button restartButton;
+    public Button nextLevelButton; // opcional, puede dejarse vacío en nivel 2
 
     private Rigidbody rb; 
     private int count;
@@ -24,9 +25,13 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         count = 0; 
         SetCountText();
-        winTextObject.SetActive(false);
-        restartButton.gameObject.SetActive(false);
-        restartButton.onClick.AddListener(RestartGame);
+
+        if (winTextObject != null) winTextObject.SetActive(false);
+        if (restartButton != null) restartButton.gameObject.SetActive(false);
+        if (nextLevelButton != null) nextLevelButton.gameObject.SetActive(false);
+
+        if (restartButton != null) restartButton.onClick.AddListener(RestartGame);
+        if (nextLevelButton != null) nextLevelButton.onClick.AddListener(GoToNextLevel);
     }
 
     void OnMove(InputValue movementValue)
@@ -58,8 +63,8 @@ public class PlayerController : MonoBehaviour
 
     void OnJump(InputValue value)
     {
-    if (gameEnded) return;
-    rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        if (gameEnded) return;
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     void OnTriggerEnter(Collider other) 
@@ -76,11 +81,21 @@ public class PlayerController : MonoBehaviour
 
     void SetCountText() 
     {
-        countText.text = "Count: " + count.ToString();
+        if (countText != null)
+            countText.text = "Count: " + count.ToString();
 
         if (count >= 7)
         {
-            EndGame("¡Has ganado!");
+            string currentScene = SceneManager.GetActiveScene().name;
+
+            if (currentScene == "MiniGane")
+            {
+                EndGame("¡Has ganado!", true);
+            }
+            else
+            {
+                EndGame("¡Has ganado!", false);
+            }
         }
     }
 
@@ -95,18 +110,33 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            EndGame("¡Has perdido!");
+            EndGame("¡Has perdido!", false);
         }
     }
 
-    void EndGame(string message)
+    void EndGame(string message, bool hasNextLevel)
     {
         gameEnded = true;
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        winTextObject.SetActive(true);
-        winTextObject.GetComponent<TextMeshProUGUI>().text = message;
-        restartButton.gameObject.SetActive(true);
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        if (winTextObject != null)
+        {
+            winTextObject.SetActive(true);
+            winTextObject.GetComponent<TextMeshProUGUI>().text = message;
+        }
+
+        if (restartButton != null) restartButton.gameObject.SetActive(true);
+        if (nextLevelButton != null) nextLevelButton.gameObject.SetActive(hasNextLevel);
+    }
+
+    void GoToNextLevel()
+    {
+        SceneManager.LoadScene("MiniGame2");
     }
 
     void RestartGame()
@@ -115,3 +145,4 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(currentScene.name);
     }
 }
+
