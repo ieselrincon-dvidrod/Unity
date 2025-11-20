@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        count = 6; 
+        count = 0; 
         SetCountText();
 
         if (winTextObject != null) winTextObject.SetActive(false);
