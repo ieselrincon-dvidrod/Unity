@@ -1,6 +1,8 @@
 # Roll a Ball
 
-Proyecto realizado en Unity que consiste en un juego donde el jugador controla una bola que debe moverse por un escenario, esquivar obstáculos, recoger ítems y enfrentarse a un enemigo que la persigue.
+**Actualización reciente:** añadido un sistema de niveles; ahora el juego pasa del nivel 1 al nivel 2 al completar los objetivos del primero.
+
+Proyecto realizado en Unity que consiste en un juego donde el jugador controla una bola que debe moverse por un escenario, esquivar obstáculos, recoger ítems y enfrentarse a un enemigo que la persigue. El juego incluye múltiples niveles, y se pasa del nivel 1 al nivel 2 al completar los objetivos del primero.
 
 ## Comenzando
 
@@ -32,6 +34,7 @@ Para probar el juego, simplemente ejecuta el proyecto desde Unity:
 1. Abre el proyecto en Unity.
 2. Haz clic en el botón **Play** en el editor.
 3. Controla la bola y verifica que pueda moverse, recoger ítems, esquivar obstáculos y que el enemigo la persiga.
+4. Comprueba que al completar los objetivos del nivel 1, el juego pasa correctamente al nivel 2.
 
 ### Prueba de estilo
 
@@ -68,4 +71,4 @@ Se recomienda usar [Versionado Semántico](http://semver.org/) para el versionad
 
 ## Autores
 
-- **Dámaris Vidal Rodríguez - 3º DAM** - *Desarrollo del proyecto*  
+- **Dámaris Vidal Rodríguez - 3º DAM** - *Desarrollo del proyecto*
